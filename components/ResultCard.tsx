@@ -18,6 +18,7 @@ const REASON_LABEL: Record<string, string> = {
   "redacted-output": "Output filter redacted the secret",
   refused: "Agent refused",
   "no-leak": "No leak",
+  "provider-error": "Agent provider error",
 };
 
 /** Shareable "I cracked level N" style summary card. */

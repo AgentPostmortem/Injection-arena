@@ -59,9 +59,19 @@ export async function runAttempt(args: RunAttemptArgs): Promise<AttemptOutcome> 
   } else {
     // Stage 2: agent responds.
     const agent = getAgent();
-    const response = await agent.respond({ challenge, userInput: args.input });
-    // Stage 3: judge grades the raw output.
-    verdict = judge(challenge, response);
+    const response = await agent
+      .respond({ challenge, userInput: args.input })
+      .catch(() => undefined);
+    if (response) {
+      // Stage 3: judge grades the raw output.
+      verdict = judge(challenge, response);
+    } else {
+      verdict = {
+        cracked: false,
+        reason: "provider-error",
+        output: "The agent provider failed to respond. Please try again.",
+      };
+    }
   }
 
   // Stage 4: score.

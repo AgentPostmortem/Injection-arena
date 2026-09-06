@@ -91,7 +91,7 @@ export interface AgentAdapter {
 /** Result of running all defenses + the judge on an attempt. */
 export interface Verdict {
   cracked: boolean;
-  /** One of: "leaked-secret", "leaked-canary", "blocked-input", "refused", "no-leak". */
+  /** Machine-readable explanation for the verdict. */
   reason: VerdictReason;
   /** Sanitized agent output shown to the player. */
   output: string;
@@ -106,7 +106,8 @@ export type VerdictReason =
   | "blocked-input"
   | "redacted-output"
   | "refused"
-  | "no-leak";
+  | "no-leak"
+  | "provider-error";
 
 export interface AttemptRecord {
   id: number;
